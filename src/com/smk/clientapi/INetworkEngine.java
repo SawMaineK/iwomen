@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.smk.model.Author;
 import com.smk.model.Category;
 import com.smk.model.Comment;
+import com.smk.model.Post;
 import com.smk.model.User;
 import retrofit.Callback;
 import retrofit.http.Body;
@@ -13,6 +14,7 @@ import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 import retrofit.mime.MultipartTypedOutput;
 
 public interface INetworkEngine {
@@ -70,7 +72,14 @@ public interface INetworkEngine {
 			@Field("user_id") Integer user_id,
 			@Field("contents") String contents,
 			@Field("photos") String photos,
-			Callback<JsonObject> callback);
+			Callback<Post> callback);
+	
+	@GET("/api-v1/post")
+	void getPost(
+			@Query("offset") Integer offset,
+			@Query("limit") Integer limit,
+			Callback<List<Post>> callback);
+	
 	
 	@GET("/api-v1/category")
 	void getCategory(Callback<List<Category>> callback);
