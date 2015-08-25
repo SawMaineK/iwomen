@@ -133,6 +133,18 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			public void failure(RetrofitError arg0) {
 				// TODO Auto-generated method stub
+				if(arg0.getResponse() != null){
+					switch (arg0.getResponse().getStatus()) {
+					case 400:
+						String error = (String) arg0.getBodyAs(String.class);
+						Toast.makeText(MainActivity.this, error, Toast.LENGTH_LONG).show();
+						break;
+
+					default:
+						break;
+					}
+					
+				}
 				
 			}
 
@@ -180,6 +192,7 @@ public class MainActivity extends ActionBarActivity {
             	}
                 selectedImagePath = getPath(selectedImageUri);
 				multipartTypedOutput.addPart("image",new TypedFile("image/png",new File(selectedImagePath)));
+				uploadUserPhoto();
             }
         }
     }
