@@ -20,7 +20,6 @@ public interface INetworkEngine {
 	@FormUrlEncoded
 	@POST("/api-v1/auth/register")
 	void postUser(
-			@Field("_token") String token,
 			@Field("username") String username,
 			@Field("email") String email,
 			@Field("password") String password,
@@ -36,7 +35,6 @@ public interface INetworkEngine {
 	@POST("/api-v1/auth/edit/{id}")
 	void editUser(
 			@Path("id") Integer id,
-			@Field("_token") String token,
 			@Field("username") String username,
 			@Field("email") String email,
 			@Field("password") String password,
@@ -51,7 +49,6 @@ public interface INetworkEngine {
 	@FormUrlEncoded
 	@POST("/api-v1/auth/login")
 	void postLogin(
-			@Field("_token") String token,
 			@Field("username") String username,
 			@Field("email") String email,
 			@Field("password") String password,
@@ -66,7 +63,6 @@ public interface INetworkEngine {
 	@FormUrlEncoded
 	@POST("/api-v1/post")
 	void createPost(
-			@Field("_token") String token,
 			@Field("title") String title,
 			@Field("title_mm") String title_mm,
 			@Field("category_id") Integer category_id,
@@ -82,7 +78,6 @@ public interface INetworkEngine {
 	@FormUrlEncoded
 	@POST("/api-v1/category")
 	void postCategory(
-			@Field("_token") String token,
 			@Field("name") String name,
 			Callback<Category> callback);
 	
@@ -92,7 +87,6 @@ public interface INetworkEngine {
 	@FormUrlEncoded
 	@POST("/api-v1/author")
 	void postAuthor(
-			@Field("_token") String token,
 			@Field("name") String name,
 			@Field("about") String about,
 			@Field("about_mm") String about_mm,
@@ -107,7 +101,6 @@ public interface INetworkEngine {
 	@FormUrlEncoded
 	@POST("/api-v1/comment")
 	void postComment(
-			@Field("_token") String token,
 			@Field("user_id") String user_id,
 			@Field("post_id") String post_id,
 			@Field("comment") String comment,
@@ -121,7 +114,6 @@ public interface INetworkEngine {
 	@FormUrlEncoded
 	@POST("/api-v1/like")
 	void postLike(
-			@Field("_token") String token,
 			@Field("user_id") String user_id,
 			@Field("post_id") String post_id,
 			Callback<JsonObject> callback);

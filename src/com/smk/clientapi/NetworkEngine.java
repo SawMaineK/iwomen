@@ -22,7 +22,7 @@ public class NetworkEngine {
 		
 		if (instance==null) {
 			RestAdapter adapter = new RestAdapter.Builder()
-			.setEndpoint("http://api.528go.com")
+			.setEndpoint("http://api.shopyface.com")
 			.setLogLevel(RestAdapter.LogLevel.FULL)
 			.setRequestInterceptor(requestInterceptor)
 			.setClient(new GzippedClient(new OkClient(new OkHttpClient())))
