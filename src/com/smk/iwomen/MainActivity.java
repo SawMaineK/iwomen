@@ -10,6 +10,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.mime.MultipartTypedOutput;
 import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
 import com.path.android.jobqueue.JobManager;
 import com.smk.application.DownloadManager;
@@ -42,7 +43,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends BaseActionBarActivity {
 
 	private static final int PIC_CROP = 100;
 	private static final int CAMERA_CAPTURE = 200;
@@ -99,7 +100,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	public void postUser(){
-		NetworkEngine.getInstance().postUser("saw", "sawmk@gmail.com", "sawsaw", "0923434232", "Saw", "K", "", UserPhotoName, "User", new Callback<User>() {
+		NetworkEngine.getInstance().postUser(MyApplication._token,"saw", "sawmk@gmail.com", "sawsaw", "0923434232", "Saw", "K", "", UserPhotoName, "User", new Callback<User>() {
 
 			@Override
 			public void failure(RetrofitError arg0) {
@@ -128,6 +129,7 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	public void uploadUserPhoto(){
+		multipartTypedOutput.addPart("access_token", new TypedString(MyApplication._token));
 		NetworkEngine.getInstance().uploadUserPhoto(multipartTypedOutput, new Callback<String>() {
 
 			@Override
@@ -196,7 +198,8 @@ public class MainActivity extends ActionBarActivity {
             }
         }
     }
-    private void performCrop(Bitmap bitmap){
+    
+	private void performCrop(Bitmap bitmap){
 		try {
 			//call the standard crop action intent (the user device may not support it)
 			Intent cropIntent = new Intent("com.android.camera.action.CROP");
@@ -230,7 +233,8 @@ public class MainActivity extends ActionBarActivity {
 		String path = Images.Media.insertImage(inContext.getContentResolver(), decoded, "Title", null);
 		return Uri.parse(path);
 	}
-    //This Method is to get the Image Path from Gallery
+    
+	//This Method is to get the Image Path from Gallery
 	public String getPath(Uri uri) {
 		
         String[] projection = { MediaStore.Images.Media.DATA };

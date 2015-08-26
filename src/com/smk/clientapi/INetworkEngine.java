@@ -2,6 +2,7 @@ package com.smk.clientapi;
 
 import java.util.List;
 import com.google.gson.JsonObject;
+import com.smk.model.AccessToken;
 import com.smk.model.Author;
 import com.smk.model.Category;
 import com.smk.model.Comment;
@@ -20,8 +21,17 @@ import retrofit.mime.MultipartTypedOutput;
 public interface INetworkEngine {
 	
 	@FormUrlEncoded
+	@POST("/oauth/access_token")
+	void getAccessToken(
+			@Field("grant_type") String grant_type,
+			@Field("client_id") String client_id,
+			@Field("client_secret") String client_secret,
+			Callback<AccessToken> callback);
+	
+	@FormUrlEncoded
 	@POST("/api-v1/auth/register")
 	void postUser(
+			@Field("access_token") String access_token,
 			@Field("username") String username,
 			@Field("email") String email,
 			@Field("password") String password,
@@ -36,6 +46,7 @@ public interface INetworkEngine {
 	@FormUrlEncoded
 	@POST("/api-v1/auth/edit/{id}")
 	void editUser(
+			@Field("access_token") String access_token,
 			@Path("id") Integer id,
 			@Field("username") String username,
 			@Field("email") String email,
@@ -51,6 +62,7 @@ public interface INetworkEngine {
 	@FormUrlEncoded
 	@POST("/api-v1/auth/login")
 	void postLogin(
+			@Field("access_token") String access_token,
 			@Field("username") String username,
 			@Field("email") String email,
 			@Field("password") String password,
@@ -65,6 +77,7 @@ public interface INetworkEngine {
 	@FormUrlEncoded
 	@POST("/api-v1/post")
 	void createPost(
+			@Field("access_token") String access_token,
 			@Field("title") String title,
 			@Field("title_mm") String title_mm,
 			@Field("category_id") Integer category_id,
@@ -76,26 +89,33 @@ public interface INetworkEngine {
 	
 	@GET("/api-v1/post")
 	void getPost(
+			@Query("access_token") String access_token,
 			@Query("offset") Integer offset,
 			@Query("limit") Integer limit,
 			Callback<List<Post>> callback);
 	
 	
 	@GET("/api-v1/category")
-	void getCategory(Callback<List<Category>> callback);
+	void getCategory(
+			@Query("access_token") String access_token,
+			Callback<List<Category>> callback);
 	
 	@FormUrlEncoded
 	@POST("/api-v1/category")
 	void postCategory(
+			@Field("access_token") String access_token,
 			@Field("name") String name,
 			Callback<Category> callback);
 	
 	@GET("/api-v1/author")
-	void getAuthor(Callback<List<Author>> callback);
+	void getAuthor(
+			@Query("access_token") String access_token,
+			Callback<List<Author>> callback);
 	
 	@FormUrlEncoded
 	@POST("/api-v1/author")
 	void postAuthor(
+			@Field("access_token") String access_token,
 			@Field("name") String name,
 			@Field("about") String about,
 			@Field("about_mm") String about_mm,
@@ -110,6 +130,7 @@ public interface INetworkEngine {
 	@FormUrlEncoded
 	@POST("/api-v1/comment")
 	void postComment(
+			@Field("access_token") String access_token,
 			@Field("user_id") String user_id,
 			@Field("post_id") String post_id,
 			@Field("comment") String comment,
@@ -117,18 +138,21 @@ public interface INetworkEngine {
 	
 	@GET("/api-v1/comment/{id}")
 	void getComment(
+			@Query("access_token") String access_token,
 			@Path("id") Integer id,
 			Callback<List<Comment>> callback);
 	
 	@FormUrlEncoded
 	@POST("/api-v1/like")
 	void postLike(
+			@Field("access_token") String access_token,
 			@Field("user_id") String user_id,
 			@Field("post_id") String post_id,
 			Callback<JsonObject> callback);
 	
 	@GET("/api-v1/like/{id}")
 	void getLike(
+			@Query("access_token") String access_token,
 			@Path("id") Integer id,
 			Callback<Integer> callback);
 	
