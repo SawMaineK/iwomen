@@ -26,6 +26,12 @@ private Integer authorId;
 @SerializedName("created_at")
 @Expose
 private String createdAt;
+@SerializedName("like_count")
+@Expose
+private Integer likeCount;
+@SerializedName("comment_count")
+@Expose
+private Integer commentCount;
 @Expose
 private List<Content> contents = new ArrayList<Content>();
 @Expose
@@ -161,6 +167,42 @@ return createdAt;
 */
 public void setCreatedAt(String createdAt) {
 this.createdAt = createdAt;
+}
+
+/**
+* 
+* @return
+* The likeCount
+*/
+public Integer getLikeCount() {
+return likeCount;
+}
+
+/**
+* 
+* @param likeCount
+* The like_count
+*/
+public void setLikeCount(Integer likeCount) {
+this.likeCount = likeCount;
+}
+
+/**
+* 
+* @return
+* The commentCount
+*/
+public Integer getCommentCount() {
+return commentCount;
+}
+
+/**
+* 
+* @param commentCount
+* The comment_count
+*/
+public void setCommentCount(Integer commentCount) {
+this.commentCount = commentCount;
 }
 
 /**

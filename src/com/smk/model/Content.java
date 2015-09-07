@@ -89,4 +89,15 @@ public void setContentMm(String contentMm) {
 this.contentMm = contentMm;
 }
 
+@Override
+public String toString() {
+	return " {\"shortContent\":\"" + shortContent + "\", shortContentMm\":\""
+			+ shortContentMm + "\", content\":\"" + content
+			+ "\", contentMm\":\"" + contentMm + "}";
+}
+
+
+
+
+
 }
